@@ -9,6 +9,7 @@ import { appStates, changeState } from "../store/features/appState.js"
 import { login } from '../store/features/user.js'
 import { USERS_API, OPTIONS } from '../settings/network.js'
 import { validatePassword, validateEmail } from '../utils/validationUtils.js'
+import textLabelsEN from "./resources/textLabelsEN.js"
 import { appName } from '../settings/appSettings.js'
 
 const Login = ({ client }) => {
@@ -147,10 +148,10 @@ const Login = ({ client }) => {
                 <Box sx={loginStyles.loginBox}>
                     <Box sx={loginStyles.logoBox}>
                         <CoPresentTwoToneIcon fontSize="large" />
-                        <Typography variant='h5'>{appName}</Typography>
+                        <Typography variant='h5'>{textLabelsEN.appName}</Typography>
                     </Box>
 
-                    <Alert sx={{
+                    <Alert aria-label="loginAlert" sx={{
                         ...loginStyles.alert,
                         display: formState.alertMessage !== "" ? "" : "none"
                     }}
