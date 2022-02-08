@@ -78,10 +78,10 @@ const Login = ({ client }) => {
     useEffect(() => {
         if (formState.submitEmailPassword) {
             submitEmailPassword()
-            setFormState({...formState, submitEmailPassword: false})
+            setFormState({ ...formState, submitEmailPassword: false })
         }
     }, [formState.submitEmailPassword]) // eslint-disable-line react-hooks/exhaustive-deps
-    
+
     // pure request to the server function
     const submitEmailPassword = () => {
         if (formState.emailError === ""
@@ -158,12 +158,13 @@ const Login = ({ client }) => {
                         severity="error">
                         {formState.alertMessage}
                     </Alert>
-                    
+
                     <Box sx={loginStyles.inputBox}>
                         <TextField
                             id="email-entry"
                             inputRef={!formState.loginInCookies ? callBackRef : {}}
-                            label='email' name="email" margin='dense' sx={loginStyles.inputLogin}
+                            label={textLabelsEN.emailEntry} name="email" margin='dense'
+                            sx={loginStyles.inputLogin}
                             error={formState.emailError === "" ? false : true}
                             helperText={formState.emailError === "" ? "" : formState.emailError}
                             FormHelperTextProps={{ error: true }}
@@ -177,7 +178,8 @@ const Login = ({ client }) => {
                         <TextField
                             id="password-entry"
                             inputRef={formState.loginInCookies ? callBackRef : {}}
-                            label='password' name="password" margin='dense' type='password'
+                            label={textLabelsEN.passwordEntry} name="password"
+                            margin='dense' type='password'
                             sx={loginStyles.inputPass} onChange={onUserEntryChange}
                             error={formState.passwordError === "" ? false : true}
                             helperText={formState.passwordError === "" ? "" : formState.passwordError}
@@ -193,11 +195,11 @@ const Login = ({ client }) => {
                                 defaultChecked
                                 value={formState.rememberMe}
                                 onChange={rememberMeClick} />}
-                            label="remember me" sx={loginStyles.remember} />
+                            label={textLabelsEN.rememberMeCheckBox} sx={loginStyles.remember} />
                     </Box>
                     <ButtonGroup variant="text" sx={loginStyles.buttonGroup}>
-                        <Button fullWidth onClick={loginClick}>log in</Button>
-                        <Button fullWidth onClick={registerClick}>register</Button>
+                        <Button fullWidth onClick={loginClick}>{textLabelsEN.loginButton}</Button>
+                        <Button fullWidth onClick={registerClick}>{textLabelsEN.registerButton}</Button>
                     </ButtonGroup>
 
                     <Typography color='primary' variant='subtitle1' sx={loginStyles.copyright}>Created by Txs</Typography>
