@@ -2,7 +2,7 @@ import { render, screen, cleanup, waitFor, } from "@testing-library/react"
 import userEvent from '@testing-library/user-event'
 import { Provider } from "react-redux"
 import '@testing-library/jest-dom'
-import { expect, describe, test, jest, beforeEach, afterEach } from "@jest/globals"
+import { expect, describe, test, jest, afterEach } from "@jest/globals"
 import configureMockStore from 'redux-mock-store'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
@@ -10,7 +10,7 @@ import MockAdapter from 'axios-mock-adapter'
 import Login from "./login.js"
 import textLabelsEN from "./resources/textLabelsEN.js"
 import { appStates } from "../store/features/appState.js"
-import { SERVER_URL, SERVER_PORT, USERS_API } from '../settings/network.js'
+import { USERS_API } from '../settings/network.js'
 
 const initialState = {
     user: {
@@ -55,7 +55,6 @@ const rejectedObject =  {
     }
 
 var mock = new MockAdapter(axios)
-//jest.mock("axios")
 
 mock.onPost(`${USERS_API}/login`).reply((config) => {
     const userData = JSON.parse(config.data)
@@ -66,28 +65,7 @@ mock.onPost(`${USERS_API}/login`).reply((config) => {
     }
 })
 
-
-//mock.onPost(`${USERS_API}/login`, {email: "v.pupkin@gmail.com", password: "11111111"})
-//    .reply(200, resolvedObject)
-
-//mock.onPost(`${USERS_API}/login`, { email: "v.pupkin@gmail.com", password: "22222222" })
-//    .reply(500, rejectedObject)
-
 describe("Login component unit test", () => {
-
-    beforeEach(() => {
-        // axios.post.mockImplementation((url, user, options) => {
-
-        //     if (user.password === "11111111") {
-        //         //return new Promise(resolve => resolve(resolvedObject))
-        //         return Promise.resolve(resolvedObject)
-        //     } else {
-        //         //return new Promise(reject => reject(rejectedObject))
-        //         return Promise.reject(new Error(rejectedObject))
-        //     }
-        // })
-
-    })
 
     afterEach(jest.clearAllMocks)
 

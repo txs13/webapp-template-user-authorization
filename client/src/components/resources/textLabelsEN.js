@@ -13,13 +13,24 @@ const textLabelsEN =  {
     menuRegister: "Register",
     
     // login form labels
-    emailEntry: "email",
-    passwordEntry: "password",
+    emailEntry: "email", // also for register form
+    passwordEntry: "password", // also for register form
     loginButton: "LOG IN",
     registerButton: "REGISTER",
     rememberMeCheckBox: "remember me",
     wrongPasswordMsg: "wrong email or password",
     otherErrorMsg: "something went wrong",
+
+    //register form labels
+    repeatPassword: "repeat password",
+    familyname: "family name",
+    role: "role",
+    backToLoginBtn: "BACK TO LOGIN",
+    createUserBtn: "CREATE USER",
+    passwordRequirements: "password: 8-16 characters, minimum one digit, one special, one lower and upper case letter",
+    userCreatedMsg: "User successfully created",
+    userExistsMsg: "User with this email is already registered!",
+    emailIsUsed: "This email is already used",
 
     // cookies confimation labels
     cookiesInfo: "This website uses cookies for website functioning only.",

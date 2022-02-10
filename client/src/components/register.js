@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from "react-redux"
 import { Box, Typography, TextField, Button, ButtonGroup, MenuItem, Alert } from "@mui/material"
 import CoPresentTwoToneIcon from '@mui/icons-material/CoPresentTwoTone'
@@ -7,11 +7,11 @@ import registerStyles from './styles/registerStyles.js'
 import { appStates, changeState } from "../store/features/appState.js"
 import { USERS_API, OPTIONS } from '../settings/network.js'
 import { validatePassword, validateEmail, validateName, validateSecondPassword } from '../utils/validationUtils.js'
-import { appName } from '../settings/appSettings.js'
+import textLabelsEN from "./resources/textLabelsEN.js"
 
 const Register = ({ roles, client }) => {
     const dispatch = useDispatch()
-
+    
     const [formState, setFormState] = useState({
         email: "",
         emailError: "",
@@ -24,7 +24,7 @@ const Register = ({ roles, client }) => {
         role: "",
         roleError: "",
         alertMessage: "",
-        infoMessage: "password: 8-16 characters, minimum one digit, one special, one lower and upper case letter",
+        infoMessage: textLabelsEN.passwordRequirements,
         submitNewUser: false
     })
 
@@ -65,15 +65,6 @@ const Register = ({ roles, client }) => {
         })
     }
 
-    // to ensure that email and password are checked and updated
-    useEffect(() => {
-        if (formState.submitNewUser) {
-            console.log('this happens')
-            postNewUser()
-            setFormState({ ...formState, submitNewUser: false })
-        }
-    }, [formState.submitNewUser]) // eslint-disable-line react-hooks/exhaustive-deps
-
     // pure request to the server function
     const postNewUser = () => {
         if (formState.emailError === "" &&
@@ -97,6 +88,17 @@ const Register = ({ roles, client }) => {
 
         }
     }
+
+    // to ensure that email and password are checked and updated
+    useEffect(() => {
+        console.log(formState.submitNewUser)
+        if (formState.submitNewUser) {
+            console.log('this happens')
+            setFormState({ ...formState, submitNewUser: false })
+            postNewUser()
+        }
+    }, [formState.submitNewUser]) // eslint-disable-line react-hooks/exhaustive-deps
+
     // end of login API block
 
     const checkEmailEntry = () => {
@@ -165,7 +167,7 @@ const Register = ({ roles, client }) => {
                 <Box sx={registerStyles.registerBox}>
                     <Box sx={registerStyles.logoBox}>
                         <CoPresentTwoToneIcon fontSize="large" />
-                        <Typography variant='h5'>{appName}</Typography>
+                        <Typography variant='h5'>{textLabelsEN.appName}</Typography>
                     </Box>
 
                     <Alert sx={{
@@ -191,7 +193,8 @@ const Register = ({ roles, client }) => {
 
                     <TextField
                         id="email-entry"
-                        label='email' name="email" margin='none' sx={registerStyles.inputLogin}
+                        label={textLabelsEN.emailEntry} name="email" margin='none'
+                        sx={registerStyles.inputLogin}
                         error={formState.emailError === "" ? false : true}
                         helperText={formState.emailError === "" ? "" : formState.emailError}
                         FormHelperTextProps={{ error: true }}
@@ -203,8 +206,8 @@ const Register = ({ roles, client }) => {
                         value={formState.email} />
 
                     <TextField
-                        id="password-entry"
-                        label='password' name="password" margin='none' type='password'
+                        id="password-entry" label={textLabelsEN.passwordEntry}
+                        name="password" margin='none' type='password'
                         sx={registerStyles.inputPass} onChange={onChangeUser}
                         error={formState.passwordError === "" ? false : true}
                         helperText={formState.passwordError === "" ? "" : formState.passwordError}
@@ -215,8 +218,8 @@ const Register = ({ roles, client }) => {
                         value={formState.password} />
 
                     <TextField
-                        id="second-password-entry"
-                        label='repeat password' name="secondPassword" margin='none' type='password'
+                        id="second-password-entry" label={textLabelsEN.repeatPassword}
+                        name="secondPassword" margin='none' type='password'
                         sx={registerStyles.inputPass} onChange={onChangeUser}
                         error={formState.secondPasswordError === "" ? false : true}
                         helperText={formState.secondPasswordError === "" ? "" : formState.secondPasswordError}
@@ -227,8 +230,8 @@ const Register = ({ roles, client }) => {
                         value={formState.secondPassword} />
 
                     <TextField
-                        id="familyname"
-                        label='family name' name="familyname" margin='none'
+                        id="familyname" label={textLabelsEN.familyname}
+                        name="familyname" margin='none'
                         sx={registerStyles.inputFamilyName} onChange={onChangeUser}
                         error={formState.familynameError === "" ? false : true}
                         helperText={formState.familynameError === "" ? "" : formState.familynameError}
@@ -238,12 +241,12 @@ const Register = ({ roles, client }) => {
                         value={formState.familyname} />
 
                     <TextField
-                        id="role" select
-                        label='role' name="role" margin='none'
+                        id="role" select label={textLabelsEN.role}
+                        name="role" margin='none'
                         sx={registerStyles.inputRole} onChange={onChangeUser}
                         error={formState.roleError === "" ? false : true}
                         helperText={formState.roleError === "" ? "" : formState.roleError}
-                        FormHelperTextProps={{error: true}}
+                        FormHelperTextProps={{ error: true }}
                         value={formState.role}>
                         {roles.map((role) => (
                             <MenuItem key={role._id} value={role._id}>
@@ -254,8 +257,12 @@ const Register = ({ roles, client }) => {
 
 
                     <ButtonGroup variant="text" sx={registerStyles.buttonGroup}>
-                        <Button fullWidth onClick={backToLogInClick}>back to log in</Button>
-                        <Button fullWidth onClick={registerClick}>create user</Button>
+                        <Button fullWidth onClick={backToLogInClick}>
+                            {textLabelsEN.backToLoginBtn}
+                        </Button>
+                        <Button fullWidth onClick={registerClick}>
+                            {textLabelsEN.createUserBtn}
+                        </Button>
                     </ButtonGroup>
                 </Box>
             </Box>

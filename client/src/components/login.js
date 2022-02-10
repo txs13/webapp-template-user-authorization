@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch } from "react-redux"
 import { useCookies } from 'react-cookie'
 import { Alert, Box, Typography, TextField, Checkbox, FormControlLabel, Button, ButtonGroup } from "@mui/material"
@@ -109,7 +109,7 @@ const Login = ({ client }) => {
     }
 
     // to ensure that email and password are checked and updated
-    useMemo(() => {
+    useEffect(() => {
         if (formState.submitEmailPassword) {
             setFormState({ ...formState, submitEmailPassword: false })
             submitEmailPassword()

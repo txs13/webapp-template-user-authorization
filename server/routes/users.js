@@ -41,7 +41,7 @@ router.post('/checkemail', (req, res, next) => {
             if (users.length > 1) {
                 res.status(400).json({
                     status: "failure", isAvailable: "",
-                    msg: "Please contact site administrator, there is several record with the same emai"
+                    msg: "Please contact site administrator, there is several records with the same emai"
                 })
             }
 
