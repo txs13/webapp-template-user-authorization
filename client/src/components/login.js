@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { useDispatch } from "react-redux"
 import { useCookies } from 'react-cookie'
 import { Alert, Box, Typography, TextField, Checkbox, FormControlLabel, Button, ButtonGroup } from "@mui/material"
@@ -10,7 +10,6 @@ import { login } from '../store/features/user.js'
 import { USERS_API, OPTIONS } from '../settings/network.js'
 import { validatePassword, validateEmail } from '../utils/validationUtils.js'
 import textLabelsEN from "./resources/textLabelsEN.js"
-import { appName } from '../settings/appSettings.js'
 
 const Login = ({ client }) => {
 
@@ -69,18 +68,12 @@ const Login = ({ client }) => {
         setFormState({
             ...formState,
             emailError: validateEmail(formState.email, true),
-            passwordError: validatePassword(formState.password, true),
+            passwordError: formState.password === "" ? textLabelsEN.enterYourPassword : "",
+            //passwordError: validatePassword(formState.password, true),
             submitEmailPassword: true
         })
 
     }
-    // to ensure that email and password are checked and updated
-    useEffect(() => {
-        if (formState.submitEmailPassword) {
-            submitEmailPassword()
-            setFormState({ ...formState, submitEmailPassword: false })
-        }
-    }, [formState.submitEmailPassword]) // eslint-disable-line react-hooks/exhaustive-deps
 
     // pure request to the server function
     const submitEmailPassword = () => {
@@ -102,16 +95,28 @@ const Login = ({ client }) => {
                 })
                 .catch((error) => {
                     if (error.response) {
-                        generateErrorAlert(error.response.data.msg)
+                        generateErrorAlert(error.response.data.msg === "wrong password" ?
+                            textLabelsEN.wrongPasswordMsg : textLabelsEN.otherErrorMsg)
                     } else if (error.request) {
+                        generateErrorAlert(textLabelsEN.otherErrorMsg)
                         console.log(error.request)
                     } else {
+                        generateErrorAlert(textLabelsEN.otherErrorMsg)
                         console.log('Error', error.message)
                     }
                 })
         }
     }
-    // end of login API block
+
+    // to ensure that email and password are checked and updated
+    useMemo(() => {
+        if (formState.submitEmailPassword) {
+            setFormState({ ...formState, submitEmailPassword: false })
+            submitEmailPassword()
+        }
+    }, [formState.submitEmailPassword]) // eslint-disable-line react-hooks/exhaustive-deps
+
+    // end of login API block ------------------------------------------------------------
 
     const onPressEnter = (e) => {
         if (e.key === "Enter") {
@@ -132,6 +137,7 @@ const Login = ({ client }) => {
     const checkPasswordEntry = () => {
         //so far I decided not to check whether password matches password requirements during logging in
         //setFormState({ ...formState, passwordError: validatePassword(formState.password) })
+        setFormState({ ...formState, passwordError: "" })
     }
 
     const rememberMeClick = () => {
@@ -151,10 +157,11 @@ const Login = ({ client }) => {
                         <Typography variant='h5'>{textLabelsEN.appName}</Typography>
                     </Box>
 
-                    <Alert aria-label="loginAlert" sx={{
-                        ...loginStyles.alert,
-                        display: formState.alertMessage !== "" ? "" : "none"
-                    }}
+                    <Alert aria-label="loginAlert" data-testid="loginAlertId"
+                        sx={{
+                            ...loginStyles.alert,
+                            display: formState.alertMessage !== "" ? "" : "none"
+                        }}
                         severity="error">
                         {formState.alertMessage}
                     </Alert>

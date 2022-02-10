@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "production": "node index.js",
-    "build": "cd ../client && npm run build && mv build ../server/frontend-build",
+    "build": "rm -r -d frontend-build && cd ../client && npm run build && mv build ../server/frontend-build",
     "test": "jest"
   },
   "author": "Anton",
@@ -16,12 +16,12 @@
     "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
-    "mongoose": "^6.2.0",
+    "mongoose": "^6.2.1",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
-    "jest": "^27.5.0",
+    "jest": "^27.5.1",
     "nodemon": "^2.0.15"
   }
 }

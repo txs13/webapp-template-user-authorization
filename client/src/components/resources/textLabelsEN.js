@@ -18,6 +18,8 @@ const textLabelsEN =  {
     loginButton: "LOG IN",
     registerButton: "REGISTER",
     rememberMeCheckBox: "remember me",
+    wrongPasswordMsg: "wrong email or password",
+    otherErrorMsg: "system error, please contact admin",
 
     // cookies confimation labels
     cookiesInfo: "This website uses cookies for website functioning only.",
