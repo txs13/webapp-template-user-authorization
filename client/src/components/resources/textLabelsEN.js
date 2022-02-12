@@ -15,45 +15,46 @@ const textLabelsEN =  {
     // login form labels
     emailEntry: "email", // also for register form
     passwordEntry: "password", // also for register form
-    loginButton: "LOG IN",
-    registerButton: "REGISTER",
+    loginBtn: "LOG IN",
+    registerBtn: "REGISTER",
     rememberMeCheckBox: "remember me",
-    wrongPasswordMsg: "wrong email or password",
-    otherErrorMsg: "something went wrong",
+    wrongPasswordAlert: "wrong email or password",
+    otherErrorAlert: "something went wrong", // also used for register form
 
     //register form labels
-    repeatPassword: "repeat password",
-    familyname: "family name",
-    role: "role",
+    repeatPasswordEntry: "repeat password",
+    familynameEntry: "family name",
+    roleEntry: "role",
     backToLoginBtn: "BACK TO LOGIN",
     createUserBtn: "CREATE USER",
-    passwordRequirements: "password: 8-16 characters, minimum one digit, one special, one lower and upper case letter",
-    userCreatedMsg: "User successfully created",
-    userExistsMsg: "User with this email is already registered!",
-    emailIsUsed: "This email is already used",
+    passwordRequirementsAlert: "password: 8-16 characters, minimum one digit, one special, one lower and upper case letter",
+    userCreatedAlert: "User successfully created",
+    userExistsAlert: "User with this email is already registered!",
+    emailIsUsedMsg: "This email is already used",
+    chooseRoleMsg: "please choose your role",
 
     // cookies confimation labels
     cookiesInfo: "This website uses cookies for website functioning only.",
-    cookiesButton: "CLOSE",
+    cookiesBtn: "CLOSE",
 
     // validate email messages
-    enterYourEmail: "please enter your email",
-    emailIsTooShort: "entered email is too short",
-    emailWrongFormat: "wrong email format",
+    enterYourEmailMsg: "please enter your email",
+    emailIsTooShortMsg: "entered email is too short",
+    emailWrongFormatMsg: "wrong email format",
 
     // validate password messages
-    enterYourPassword: "please enter your password",
-    passwordIsShort: "your password is too short",
-    passwordIsLong: "your password is too long",
-    passwordWrongFormat: "your password has wrong format",
+    enterYourPasswordMsg: "please enter your password",
+    passwordIsShortMsg: "your password is too short",
+    passwordIsLongMsg: "your password is too long",
+    passwordWrongFormatMsg: "your password has wrong format",
 
     // validate second password messages
-    secondPasswordNotMatch: "entered passwords do not match",
+    secondPasswordNotMatchMsg: "entered passwords do not match",
 
     // validate name messages
-    enterYourName: "please enter your credentials",
-    nameIsShort: "entry is too short",
-    nameWrongFormat: "entry contains not allowed characters",
+    enterYourNameMsg: "please enter your credentials",
+    nameIsShortMsg: "entry is too short",
+    nameWrongFormatMsg: "entry contains not allowed characters",
 
 }
 

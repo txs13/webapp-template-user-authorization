@@ -24,7 +24,7 @@ const Register = ({ roles, client }) => {
         role: "",
         roleError: "",
         alertMessage: "",
-        infoMessage: textLabelsEN.passwordRequirements,
+        infoMessage: textLabelsEN.passwordRequirementsAlert,
         submitNewUser: false
     })
 
@@ -60,7 +60,7 @@ const Register = ({ roles, client }) => {
             passwordError: validatePassword(formState.password, true),
             secondPasswordError: validateSecondPassword(formState.password, formState.secondPassword),
             familynameError: validateName(formState.familyname, true),
-            roleError: formState.role === "" ? "please choose your role" : "",
+            roleError: formState.role === "" ? textLabelsEN.chooseRoleMsg : "",
             submitNewUser: true
         })
     }
@@ -78,7 +78,8 @@ const Register = ({ roles, client }) => {
                 })
                 .catch((error) => {
                     if (error.response) {
-                        generateErrorAlert(error.response.data.msg)
+                        generateErrorAlert(error.response.data.msg === "User with this email is already registered!" ?
+                            textLabelsEN.userExistsAlert : textLabelsEN.otherErrorAlert)
                     } else if (error.request) {
                         console.log(error.request)
                     } else {
@@ -91,9 +92,7 @@ const Register = ({ roles, client }) => {
 
     // to ensure that email and password are checked and updated
     useEffect(() => {
-        console.log(formState.submitNewUser)
         if (formState.submitNewUser) {
-            console.log('this happens')
             setFormState({ ...formState, submitNewUser: false })
             postNewUser()
         }
@@ -104,7 +103,7 @@ const Register = ({ roles, client }) => {
     const checkEmailEntry = () => {
         if (validateEmail(formState.email) !== "") {
             setFormState({ ...formState, emailError: validateEmail(formState.email) })
-        } else if (formState.email !== "") {
+        } else if (formState.email !== "" && validateEmail(formState.email) === "") {
             client.post(`${USERS_API}/checkemail`,
                 { email: formState.email },
                 OPTIONS)
@@ -115,7 +114,7 @@ const Register = ({ roles, client }) => {
                             setFormState({ ...formState, emailError: "" })
                         } else {
                             // this means that this email is already used
-                            setFormState({ ...formState, emailError: "This email is already used" })
+                            setFormState({ ...formState, emailError: textLabelsEN.emailIsUsedMsg })
                         }
                     }
 
@@ -130,7 +129,7 @@ const Register = ({ roles, client }) => {
                         setFormState({
                             ...formState,
                             emailError: "",
-                            alertMessage: "Unknown internal error has happened. Please contact system administrator"
+                            alertMessage: textLabelsEN.otherErrorAlert
                         })
                     }
 
@@ -170,7 +169,7 @@ const Register = ({ roles, client }) => {
                         <Typography variant='h5'>{textLabelsEN.appName}</Typography>
                     </Box>
 
-                    <Alert sx={{
+                    <Alert data-testid="loginAlertId" sx={{
                         ...registerStyles.alert,
                         display: formState.alertMessage !== "" ? "" : "none"
                     }}
@@ -178,7 +177,7 @@ const Register = ({ roles, client }) => {
                         {formState.alertMessage}
                     </Alert>
 
-                    <Alert sx={{
+                    <Alert data-testid="infoAlertId" sx={{
                         ...registerStyles.alert,
                         display: formState.alertMessage === "" &&
                             formState.emailError === "" &&
@@ -218,7 +217,7 @@ const Register = ({ roles, client }) => {
                         value={formState.password} />
 
                     <TextField
-                        id="second-password-entry" label={textLabelsEN.repeatPassword}
+                        id="second-password-entry" label={textLabelsEN.repeatPasswordEntry}
                         name="secondPassword" margin='none' type='password'
                         sx={registerStyles.inputPass} onChange={onChangeUser}
                         error={formState.secondPasswordError === "" ? false : true}
@@ -230,7 +229,7 @@ const Register = ({ roles, client }) => {
                         value={formState.secondPassword} />
 
                     <TextField
-                        id="familyname" label={textLabelsEN.familyname}
+                        id="familyname" label={textLabelsEN.familynameEntry}
                         name="familyname" margin='none'
                         sx={registerStyles.inputFamilyName} onChange={onChangeUser}
                         error={formState.familynameError === "" ? false : true}
@@ -241,7 +240,7 @@ const Register = ({ roles, client }) => {
                         value={formState.familyname} />
 
                     <TextField
-                        id="role" select label={textLabelsEN.role}
+                        id="role" select label={textLabelsEN.roleEntry}
                         name="role" margin='none'
                         sx={registerStyles.inputRole} onChange={onChangeUser}
                         error={formState.roleError === "" ? false : true}

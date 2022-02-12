@@ -68,7 +68,7 @@ const Login = ({ client }) => {
         setFormState({
             ...formState,
             emailError: validateEmail(formState.email, true),
-            passwordError: formState.password === "" ? textLabelsEN.enterYourPassword : "",
+            passwordError: formState.password === "" ? textLabelsEN.enterYourPasswordMsg : "",
             //passwordError: validatePassword(formState.password, true),
             submitEmailPassword: true
         })
@@ -96,12 +96,12 @@ const Login = ({ client }) => {
                 .catch((error) => {
                     if (error.response) {
                         generateErrorAlert(error.response.data.msg === "wrong password" ?
-                            textLabelsEN.wrongPasswordMsg : textLabelsEN.otherErrorMsg)
+                            textLabelsEN.wrongPasswordAlert : textLabelsEN.otherErrorAlert)
                     } else if (error.request) {
-                        generateErrorAlert(textLabelsEN.otherErrorMsg)
+                        generateErrorAlert(textLabelsEN.otherErrorAlert)
                         console.log(error.request)
                     } else {
-                        generateErrorAlert(textLabelsEN.otherErrorMsg)
+                        generateErrorAlert(textLabelsEN.otherErrorAlert)
                         console.log('Error', error.message)
                     }
                 })
@@ -205,8 +205,8 @@ const Login = ({ client }) => {
                             label={textLabelsEN.rememberMeCheckBox} sx={loginStyles.remember} />
                     </Box>
                     <ButtonGroup variant="text" sx={loginStyles.buttonGroup}>
-                        <Button fullWidth onClick={loginClick}>{textLabelsEN.loginButton}</Button>
-                        <Button fullWidth onClick={registerClick}>{textLabelsEN.registerButton}</Button>
+                        <Button fullWidth onClick={loginClick}>{textLabelsEN.loginBtn}</Button>
+                        <Button fullWidth onClick={registerClick}>{textLabelsEN.registerBtn}</Button>
                     </ButtonGroup>
 
                     <Typography color='primary' variant='subtitle1' sx={loginStyles.copyright}>Created by Txs</Typography>

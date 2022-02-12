@@ -85,8 +85,8 @@ describe("Login component unit test", () => {
         const emailInput = screen.getByLabelText(textLabelsEN.emailEntry)
         const passwordInput = screen.getByLabelText(textLabelsEN.passwordEntry)
         const rememberCheckBox = screen.getByLabelText(textLabelsEN.rememberMeCheckBox)
-        const loginButton = screen.getByText(textLabelsEN.loginButton)
-        const registerButton = screen.getByText(textLabelsEN.registerButton)
+        const loginButton = screen.getByText(textLabelsEN.loginBtn)
+        const registerButton = screen.getByText(textLabelsEN.registerBtn)
 
         // checking that all components are in place
         expect(appName).toBeInTheDocument()
@@ -100,8 +100,8 @@ describe("Login component unit test", () => {
 
         //entered email and password are empty
         userEvent.click(loginButton)
-        let emailValidationMsg = screen.getByText(textLabelsEN.enterYourEmail)
-        let passwordValidationMsg = screen.getByText(textLabelsEN.enterYourPassword)
+        let emailValidationMsg = screen.getByText(textLabelsEN.enterYourEmailMsg)
+        let passwordValidationMsg = screen.getByText(textLabelsEN.enterYourPasswordMsg)
 
         expect(emailValidationMsg).toBeInTheDocument()
         expect(passwordValidationMsg).toBeInTheDocument()
@@ -110,7 +110,7 @@ describe("Login component unit test", () => {
         userEvent.type(emailInput, "abc")
         userEvent.click(passwordInput)
 
-        expect(emailValidationMsg.textContent).toEqual(textLabelsEN.emailIsTooShort)
+        expect(emailValidationMsg.textContent).toEqual(textLabelsEN.emailIsTooShortMsg)
 
         userEvent.clear(emailInput)
 
@@ -118,7 +118,7 @@ describe("Login component unit test", () => {
         userEvent.type(emailInput, "abcdefg.com")
         userEvent.click(passwordInput)
 
-        expect(emailValidationMsg.textContent).toEqual(textLabelsEN.emailWrongFormat)
+        expect(emailValidationMsg.textContent).toEqual(textLabelsEN.emailWrongFormatMsg)
 
         userEvent.clear(emailInput)
 
@@ -158,7 +158,7 @@ describe("Login component unit test", () => {
         // this is to check that in case of not successfull login appears alert banner with 
         // proper message
         await waitFor(() => {
-            expect(loginAlert.textContent).toContain(textLabelsEN.wrongPasswordMsg || textLabelsEN.otherErrorMsg)
+            expect(loginAlert.textContent).toContain(textLabelsEN.wrongPasswordAlert || textLabelsEN.otherErrorAlert)
         })
 
         store.clearActions()

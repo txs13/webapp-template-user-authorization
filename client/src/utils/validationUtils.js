@@ -7,7 +7,7 @@ export const validateEmail = (email, submittingForm) => {
     const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     
     if (!email && submittingForm) {
-        return textLabelsEN.enterYourEmail
+        return textLabelsEN.enterYourEmailMsg
     }
 
     if (!email) {
@@ -15,11 +15,11 @@ export const validateEmail = (email, submittingForm) => {
     }
 
     if (email.length <= 6) {
-        return textLabelsEN.emailIsTooShort
+        return textLabelsEN.emailIsTooShortMsg
     }
 
     if (!regex.test(email)) {
-        return textLabelsEN.emailWrongFormat
+        return textLabelsEN.emailWrongFormatMsg
     }
 
     return ""
@@ -31,15 +31,15 @@ export const validateName = (name, submittingForm) => {
     const regex = /^[a-zA-Z\s]*$/
 
     if (name.length === 0 && submittingForm) {
-        return textLabelsEN.enterYourName
+        return textLabelsEN.enterYourNameMsg
     }
 
     if (name.length < 2 && name.length !== 0) {
-        return textLabelsEN.nameIsShort
+        return textLabelsEN.nameIsShortMsg
     }
 
     if (!regex.test(name)) {
-        return textLabelsEN.nameWrongFormat
+        return textLabelsEN.nameWrongFormatMsg
     }
 
     return ""
@@ -52,7 +52,7 @@ export const validatePassword = (password, submittingForm) => {
     const regex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/
 
     if (!password && submittingForm) {
-        return textLabelsEN.enterYourPassword
+        return textLabelsEN.enterYourPasswordMsg
     }
 
     if (!password) {
@@ -60,15 +60,15 @@ export const validatePassword = (password, submittingForm) => {
     }
 
     if (password.length < 6) {
-        return textLabelsEN.passwordIsShort
+        return textLabelsEN.passwordIsShortMsg
     }
 
     if (password.length > 16) {
-        return textLabelsEN.passwordIsLong
+        return textLabelsEN.passwordIsLongMsg
     }
 
     if (!regex.test(password)) {
-        return textLabelsEN.passwordWrongFormat
+        return textLabelsEN.passwordWrongFormatMsg
     }
 
     return ""
@@ -78,7 +78,7 @@ export const validatePassword = (password, submittingForm) => {
 export const validateSecondPassword = (password, secondPassword) => {
     if (secondPassword.length > 0 &&
         password !== secondPassword) {
-        return textLabelsEN.secondPasswordNotMatch
+        return textLabelsEN.secondPasswordNotMatchMsg
     } else {
         return ""
     }

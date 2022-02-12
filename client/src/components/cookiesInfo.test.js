@@ -14,7 +14,7 @@ describe("Cookies confimation component unit test", () => {
         const view =
             render(<CookiesInfo confirmCookiesClick={() => { }} cookiesConfirmed={cookiesConfirmed} />)
         const cookiesText = screen.getByText(textLabelsEN.cookiesInfo)
-        const cookiesButton = screen.getByText(textLabelsEN.cookiesButton)
+        const cookiesButton = screen.getByText(textLabelsEN.cookiesBtn)
         // element exist in DOM
         expect(cookiesText).toBeInTheDocument()
         expect(cookiesButton).toBeInTheDocument()
@@ -36,7 +36,7 @@ describe("Cookies confimation component unit test", () => {
         const cookiesConfirmed = false
         const onClickMock = jest.fn()
         render(<CookiesInfo confirmCookiesClick={onClickMock} cookiesConfirmed={cookiesConfirmed} />)
-        const cookiesButton = screen.getByText(textLabelsEN.cookiesButton)
+        const cookiesButton = screen.getByText(textLabelsEN.cookiesBtn)
         // checking that onClik property passed fom props to the button correctly
         userEvent.click(cookiesButton)
         expect(onClickMock).toHaveBeenCalled()

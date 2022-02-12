@@ -13,7 +13,7 @@ const CookiesInfo = ({ confirmCookiesClick, cookiesConfirmed }) => {
                 <Typography sx={cookiesInfoStyles.cookiesText}>{textLabelsEN.cookiesInfo}</Typography>
                 <Button sx={cookiesInfoStyles.cookiesClose} onClick={confirmCookiesClick}
                     size="small" variant='outlined'>
-                    {textLabelsEN.cookiesButton}
+                    {textLabelsEN.cookiesBtn}
                 </Button>
             </Box>
         </>
