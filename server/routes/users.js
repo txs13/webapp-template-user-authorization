@@ -58,7 +58,7 @@ router.post('/login', (req, res, next) => {
     Users.findOne({ email: req.body.email })
         .then((user) => {
             if (!user) {
-                res.status(401).json({ status: false, msg: "could not find user" })
+                res.status(401).json({ success: false, msg: "could not find user" })
             } else {
                 const isValid = validatePassword(req.body.password, user.hash, user.salt)
                 if (isValid) {
@@ -73,7 +73,7 @@ router.post('/login', (req, res, next) => {
                         expiresIn: tokenObject.expires
                     })
                 } else {
-                    res.status(400).json({ status: false, msg: "wrong password" })
+                    res.status(400).json({ success: false, msg: "wrong password" })
                 }
             }
         })
@@ -109,25 +109,25 @@ router.post('/register', (req, res, next) => {
                             newUserEntry.save()
                                 .then(() => {
                                     console.log(`User ${newUser.email} is created`)
-                                    res.status(201).json({ status: true, msg: "User successfully created" })
+                                    res.status(201).json({ success: true, msg: "User successfully created" })
                                 })
                                 .catch((error) => {
                                     console.log(error)
-                                    res.status(400).json({ status: false, msg: "database error" })
+                                    res.status(400).json({ success: false, msg: "database error" })
                                 })
                         } else {
-                            res.status(400).json({ status: false, msg: "Wrong role ID!" })
+                            res.status(400).json({ success: false, msg: "Wrong role ID!" })
                         }
                     })
                     .catch((error) => {
                         console.log(error)
-                        res.status(400).json({ status: false, msg: "database error" })
+                        res.status(400).json({ success: false, msg: "database error" })
                     })
             }
         })
         .catch((error) => {
             console.log(error)
-            res.status(400).json({ status: false, msg: "database error" })
+            res.status(400).json({ success: false, msg: "database error" })
         })
 })
 

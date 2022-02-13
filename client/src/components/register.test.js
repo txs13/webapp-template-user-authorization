@@ -52,10 +52,10 @@ var mock = new MockAdapter(axios)
 mock.onPost(`${USERS_API}/register`).reply((config) => {
     const userData = JSON.parse(config.data)
     if (userData.email === "noname@noname.com") {
-        return [400, { status: false, msg: "User with this email is already registered!" }]
+        return [400, { success: false, msg: "User with this email is already registered!" }]
     }
 
-    return [201, { status: true, msg: "User successfully created" }]
+    return [201, { success: true, msg: "User successfully created" }]
 
 })
 

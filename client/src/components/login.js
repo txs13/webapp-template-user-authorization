@@ -95,7 +95,8 @@ const Login = ({ client }) => {
                 })
                 .catch((error) => {
                     if (error.response) {
-                        generateErrorAlert(error.response.data.msg === "wrong password" ?
+                        generateErrorAlert(error.response.data.msg === "wrong password" || 
+                            error.response.data.msg === "could not find user" ?
                             textLabelsEN.wrongPasswordAlert : textLabelsEN.otherErrorAlert)
                     } else if (error.request) {
                         generateErrorAlert(textLabelsEN.otherErrorAlert)
