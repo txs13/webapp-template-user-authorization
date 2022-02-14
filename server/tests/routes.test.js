@@ -1,8 +1,23 @@
 import request from 'supertest'
 import mongoose from 'mongoose'
-import { jest, beforeAll } from '@jest/globals'
+import { jest } from '@jest/globals'
+import jsonwebtoken from 'jsonwebtoken'
+import fs from 'fs'
+import path from 'path'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+const _dirname = dirname(fileURLToPath(import.meta.url))
+const pathToPrivKey = path.join(_dirname, '..', 'keys', 'id_rsa_priv.pem')
+const PRIV_KEY = fs.readFileSync(pathToPrivKey, 'utf8')
+const pathToPubKey = path.join(_dirname, '..', 'keys', 'id_rsa_priv.pem')
+const PUB_KEY = fs.readFileSync(pathToPubKey, 'utf8')
+
 const Users = mongoose.model('Users')
 const UserRoles = mongoose.model('UserRoles')
+
+const timeout = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 import app from '../app.js'
 
@@ -21,7 +36,6 @@ describe("API tests", () => {
             expect(global.console.log).toHaveBeenCalledWith("Standard user roles checked - OK")
         }, 2000)
         done()
-
     })
 
     test("user roles - get public roles", async () => {
@@ -182,5 +196,57 @@ describe("API tests", () => {
         dbUser = await Users.find({ email: newUser.email })
         expect(dbUser.length).toBe(0)
 
+    })
+
+    test("user - check email", async () => {
+        let emailData = await request(app).post("/api/v1/users/checkemail").send({email: "dmin@yoursite.com"})
+        expect(emailData.status).toBe(200)
+        expect(emailData.body).toEqual({ status: "success", isAvailable: "true", msg: "" })
+        
+        emailData = await request(app).post("/api/v1/users/checkemail").send({ email: "admin@yoursite.com" })
+        expect(emailData.status).toBe(200)
+        expect(emailData.body).toEqual({ status: "success", isAvailable: "false", msg: "" })
+    })
+
+    test("user - check token refresh", async () => {
+        // normal login and jwt token read 
+        let loginData = await request(app).post('/api/v1/users/login')
+            .send({ email: "admin@yoursite.com", password: "12345678" })
+        expect(loginData.body.token).toContain("Bearer")
+        expect(loginData.body.user.email).toBe("admin@yoursite.com")
+        expect(loginData.body.success).toBe(true)
+
+        const tokenString = loginData.body.token.split(' ')
+        expect(tokenString.length).toBe(2)
+        expect(tokenString[0]).toBe("Bearer")
+        expect(tokenString[1].length).not.toBe(0)
+        // cheking login token and extracting expiration date 
+        let expTimeLoggedin
+        jsonwebtoken.verify(tokenString[1], PRIV_KEY, {algorithms: ['RS256']}, (err, decoded) => {
+            expect(err).toBeNull()
+            expect(decoded).not.toBeNull()
+            expTimeLoggedin = decoded.exp
+        } )
+        // witing some seconds
+        await timeout(2000)
+        // refreshing token
+        let refreshedLoginData = await request(app).get('/api/v1/users/refresh')
+            .set({ Authorization: loginData.body.token })
+        expect(refreshedLoginData.status).toBe(200)
+        const refreshedTokenString = refreshedLoginData.body.token.split(" ")
+        expect(refreshedTokenString.length).toBe(2)
+        expect(refreshedTokenString[0]).toBe("Bearer")
+        expect(refreshedTokenString[1].length).not.toBe(0)
+        // checking new token and extracting updated expiration time
+        let expTimeRefreshed
+        jsonwebtoken.verify(refreshedTokenString[1], PRIV_KEY, { algorithms: ['RS256'] }, (err, decoded) => {
+            expect(err).toBeNull()
+            expect(decoded).not.toBeNull()
+            expTimeRefreshed = decoded.exp
+        })
+        // updated token expiration time should be later that the login one
+        const dateNow = Date.now() / 1000
+        expect(expTimeRefreshed).toBeGreaterThan(dateNow)
+        expect(expTimeRefreshed).toBeGreaterThan(expTimeLoggedin)    
     })
 })
