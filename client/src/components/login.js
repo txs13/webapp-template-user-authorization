@@ -95,7 +95,7 @@ const Login = ({ client }) => {
                 })
                 .catch((error) => {
                     if (error.response) {
-                        generateErrorAlert(error.response.data.msg === "wrong password" || 
+                        generateErrorAlert(error.response.data.msg === "wrong password" ||
                             error.response.data.msg === "could not find user" ?
                             textLabelsEN.wrongPasswordAlert : textLabelsEN.otherErrorAlert)
                     } else if (error.request) {
@@ -152,10 +152,12 @@ const Login = ({ client }) => {
     return (
         <>
             <Box sx={loginStyles.mainBox}>
-                <Box sx={loginStyles.loginBox}>
+                <Box sx={loginStyles.loginBox} id="login-form-frame">
                     <Box sx={loginStyles.logoBox}>
                         <CoPresentTwoToneIcon fontSize="large" />
-                        <Typography variant='h5'>{textLabelsEN.appName}</Typography>
+                        <Typography variant='h5' id="login-form-header">
+                            {textLabelsEN.appName}
+                        </Typography>
                     </Box>
 
                     <Alert aria-label="loginAlert" data-testid="loginAlertId"

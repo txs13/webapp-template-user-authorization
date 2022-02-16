@@ -10,8 +10,10 @@ const CookiesInfo = ({ confirmCookiesClick, cookiesConfirmed }) => {
         <>
             <Box id="cookies-box" sx={{ ...cookiesInfoStyles.cookiesBox,
                     display: cookiesConfirmed === "confirmed" ? "none" : "flex"}}>
-                <Typography sx={cookiesInfoStyles.cookiesText}>{textLabelsEN.cookiesInfo}</Typography>
-                <Button sx={cookiesInfoStyles.cookiesClose} onClick={confirmCookiesClick}
+                <Typography id="cookies-text"
+                    sx={cookiesInfoStyles.cookiesText}>{textLabelsEN.cookiesInfo}</Typography>
+                <Button id="cookies-btn"
+                    sx={cookiesInfoStyles.cookiesClose} onClick={confirmCookiesClick}
                     size="small" variant='outlined'>
                     {textLabelsEN.cookiesBtn}
                 </Button>

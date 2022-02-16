@@ -9,10 +9,12 @@ const Welcome = () => {
     return (
         <>
             <Box sx={welcomeStyles.mainBox}>
-                <Box sx={welcomeStyles.welcomeBox}>
+                <Box sx={welcomeStyles.welcomeBox} id="welcome-form-frame">
                     <Box sx={welcomeStyles.logoBox}>
                         <CoPresentTwoToneIcon fontSize="large" />
-                        <Typography variant='h5'>{textLabelsEN.appName}</Typography>
+                        <Typography variant='h5' id="welcome-form-header">
+                            {textLabelsEN.appName}
+                        </Typography>
                     </Box>
                     <Typography align='left' color='primary' variant='subtitle1' sx={welcomeStyles.copyright}>Created by Txs</Typography>
                 </Box>
