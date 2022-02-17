@@ -1,6 +1,6 @@
 module.exports = {
     server: {
-        command: 'npm start',
+        command: 'node index.js',
         port: 5000,
     },
     launch: {

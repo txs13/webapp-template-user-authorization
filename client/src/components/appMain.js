@@ -14,7 +14,9 @@ const AppMain = () => {
 
     return (
         <>
-            <h1>MAIN APP FRAME</h1>
+            <div id="main-app-frame">
+                <h1>MAIN APP FRAME</h1>
+            </div>
         </>
     )
 }

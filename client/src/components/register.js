@@ -11,7 +11,7 @@ import textLabelsEN from "./resources/textLabelsEN.js"
 
 const Register = ({ roles, client }) => {
     const dispatch = useDispatch()
-    
+
     const [formState, setFormState] = useState({
         email: "",
         emailError: "",
@@ -169,29 +169,31 @@ const Register = ({ roles, client }) => {
                         <Typography variant='h5'>{textLabelsEN.appName}</Typography>
                     </Box>
 
-                    <Alert data-testid="loginAlertId" sx={{
-                        ...registerStyles.alert,
-                        display: formState.alertMessage !== "" ? "" : "none"
-                    }}
+                    <Alert data-testid="loginAlertId" id="register-form-alert"
+                        sx={{
+                            ...registerStyles.alert,
+                            display: formState.alertMessage !== "" ? "" : "none"
+                        }}
                         severity="error">
                         {formState.alertMessage}
                     </Alert>
 
-                    <Alert data-testid="infoAlertId" sx={{
-                        ...registerStyles.alert,
-                        display: formState.alertMessage === "" &&
-                            formState.emailError === "" &&
-                            formState.passwordError === "" &&
-                            formState.secondPasswordError === "" &&
-                            formState.familynameError === "" &&
-                            formState.roleError === "" ? "" : "none"
-                    }}
+                    <Alert data-testid="infoAlertId" id="register-form-info"
+                        sx={{
+                            ...registerStyles.alert,
+                            display: formState.alertMessage === "" &&
+                                formState.emailError === "" &&
+                                formState.passwordError === "" &&
+                                formState.secondPasswordError === "" &&
+                                formState.familynameError === "" &&
+                                formState.roleError === "" ? "" : "none"
+                        }}
                         severity="info">
                         {formState.infoMessage}
                     </Alert>
 
                     <TextField
-                        id="email-entry"
+                        id="register-form-email-entry"
                         label={textLabelsEN.emailEntry} name="email" margin='none'
                         sx={registerStyles.inputLogin}
                         error={formState.emailError === "" ? false : true}
@@ -205,7 +207,7 @@ const Register = ({ roles, client }) => {
                         value={formState.email} />
 
                     <TextField
-                        id="password-entry" label={textLabelsEN.passwordEntry}
+                        id="register-form-password-entry" label={textLabelsEN.passwordEntry}
                         name="password" margin='none' type='password'
                         sx={registerStyles.inputPass} onChange={onChangeUser}
                         error={formState.passwordError === "" ? false : true}
@@ -217,7 +219,7 @@ const Register = ({ roles, client }) => {
                         value={formState.password} />
 
                     <TextField
-                        id="second-password-entry" label={textLabelsEN.repeatPasswordEntry}
+                        id="register-form-second-password-entry" label={textLabelsEN.repeatPasswordEntry}
                         name="secondPassword" margin='none' type='password'
                         sx={registerStyles.inputPass} onChange={onChangeUser}
                         error={formState.secondPasswordError === "" ? false : true}
@@ -229,7 +231,7 @@ const Register = ({ roles, client }) => {
                         value={formState.secondPassword} />
 
                     <TextField
-                        id="familyname" label={textLabelsEN.familynameEntry}
+                        id="register-form-familyname-entry" label={textLabelsEN.familynameEntry}
                         name="familyname" margin='none'
                         sx={registerStyles.inputFamilyName} onChange={onChangeUser}
                         error={formState.familynameError === "" ? false : true}
@@ -240,7 +242,7 @@ const Register = ({ roles, client }) => {
                         value={formState.familyname} />
 
                     <TextField
-                        id="role" select label={textLabelsEN.roleEntry}
+                        id="register-form-role-entry" select label={textLabelsEN.roleEntry}
                         name="role" margin='none'
                         sx={registerStyles.inputRole} onChange={onChangeUser}
                         error={formState.roleError === "" ? false : true}
@@ -248,7 +250,7 @@ const Register = ({ roles, client }) => {
                         FormHelperTextProps={{ error: true }}
                         value={formState.role}>
                         {roles.map((role) => (
-                            <MenuItem key={role._id} value={role._id}>
+                            <MenuItem key={role._id} value={role._id} id={`register-form-role-${role.userRole.toLowerCase()}`}>
                                 {role.userRole}
                             </MenuItem>
                         ))}
@@ -256,10 +258,10 @@ const Register = ({ roles, client }) => {
 
 
                     <ButtonGroup variant="text" sx={registerStyles.buttonGroup}>
-                        <Button fullWidth onClick={backToLogInClick}>
+                        <Button fullWidth onClick={backToLogInClick} id="register-form-back-btn">
                             {textLabelsEN.backToLoginBtn}
                         </Button>
-                        <Button fullWidth onClick={registerClick}>
+                        <Button fullWidth onClick={registerClick} id="register-form-register-btn">
                             {textLabelsEN.createUserBtn}
                         </Button>
                     </ButtonGroup>

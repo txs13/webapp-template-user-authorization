@@ -8,7 +8,7 @@
     "start": "nodemon index.js",
     "production": "node index.js",
     "build": "rm -r -d frontend-build && cd ../client && npm run build && mv build ../server/frontend-build",
-    "test": "JEST_PUPPETEER_CONFIG=./jest-puppeteer.config.cjs node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll"
+    "test": "JEST_PUPPETEER_CONFIG=./jest-puppeteer.config.cjs node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "author": "Anton",
   "license": "MIT",

@@ -86,7 +86,7 @@ const AppNavbar = () => {
                     <Box sx={appNavBarStyles.logoBox} onClick={logoClick}>
                         <CoPresentTwoToneIcon sx={appNavBarStyles.logo} fontSize="large" />
                     </Box>
-                    <Typography sx={ appNavBarStyles.headerName } 
+                    <Typography sx={appNavBarStyles.headerName}
                         variant='h6'>
                         {textLabelsEN.appName}
                     </Typography>
@@ -99,7 +99,8 @@ const AppNavbar = () => {
                         {textLabelsEN.aboutWebsiteLink}
                     </Typography>
                     <Box sx={appNavBarStyles.userBox}>
-                        <IconButton sx={{ p: 0 }} aria-label="menuButton" onClick={handleOpenUserMenu}>
+                        <IconButton id="navbar-menu-icon"
+                            sx={{ p: 0 }} aria-label="menuButton" onClick={handleOpenUserMenu}>
                             <AccountCircle sx={appNavBarStyles.userIcon} fontSize="large" />
                         </IconButton>
                         <Menu
@@ -121,13 +122,15 @@ const AppNavbar = () => {
                             {user._id
                                 ? authorizedMenuSettings.map((menuItem) => (
                                     <MenuItem key={menuItem} onClick={handleCloseUserMenu}
-                                        value={menuItem}>
+                                        value={menuItem}
+                                        id={`navbar-menu-item-${menuItem.toLowerCase().replace(" ", "")}`}>
                                         {menuItem}
                                     </MenuItem>
                                 ))
                                 : notAuthorizedMenuSettins.map((menuItem) => (
                                     <MenuItem key={menuItem} onClick={handleCloseUserMenu}
-                                        value={menuItem}>
+                                        value={menuItem}
+                                        id={`navbar-menu-item-${menuItem.toLowerCase().replace(" ", "")}`}>
                                         {menuItem}
                                     </MenuItem>
                                 ))}

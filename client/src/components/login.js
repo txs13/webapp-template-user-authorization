@@ -161,6 +161,7 @@ const Login = ({ client }) => {
                     </Box>
 
                     <Alert aria-label="loginAlert" data-testid="loginAlertId"
+                        id="login-form-alert"
                         sx={{
                             ...loginStyles.alert,
                             display: formState.alertMessage !== "" ? "" : "none"
@@ -171,7 +172,7 @@ const Login = ({ client }) => {
 
                     <Box sx={loginStyles.inputBox}>
                         <TextField
-                            id="email-entry"
+                            id="login-form-email-entry"
                             inputRef={!formState.loginInCookies ? callBackRef : {}}
                             label={textLabelsEN.emailEntry} name="email" margin='dense'
                             sx={loginStyles.inputLogin}
@@ -186,7 +187,7 @@ const Login = ({ client }) => {
                             value={formState.email} />
 
                         <TextField
-                            id="password-entry"
+                            id="login-form-password-entry"
                             inputRef={formState.loginInCookies ? callBackRef : {}}
                             label={textLabelsEN.passwordEntry} name="password"
                             margin='dense' type='password'
@@ -208,8 +209,12 @@ const Login = ({ client }) => {
                             label={textLabelsEN.rememberMeCheckBox} sx={loginStyles.remember} />
                     </Box>
                     <ButtonGroup variant="text" sx={loginStyles.buttonGroup}>
-                        <Button fullWidth onClick={loginClick}>{textLabelsEN.loginBtn}</Button>
-                        <Button fullWidth onClick={registerClick}>{textLabelsEN.registerBtn}</Button>
+                        <Button fullWidth onClick={loginClick} id="login-form-login-btn">
+                            {textLabelsEN.loginBtn}
+                        </Button>
+                        <Button fullWidth onClick={registerClick} id="login-form-register-btn">
+                            {textLabelsEN.registerBtn}
+                        </Button>
                     </ButtonGroup>
 
                     <Typography color='primary' variant='subtitle1' sx={loginStyles.copyright}>Created by Txs</Typography>
