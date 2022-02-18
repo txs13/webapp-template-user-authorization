@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  webapp-template-client:
+    build: ./client
+    image: webapp-template-client
+    stdin_open: true
+    ports:
+      - "80:80"
+    networks:
+      - webapp-template-network
+  webapp-template-api:
+    build: ./server
+    image: webapp-template-api
+    ports:
+      - "5000:5000"
+    networks:
+      - webapp-template-network
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:5.0.6
+    ports:
+      - "27017: 27017"
+    networks:
+      - webapp-template-network
+    volumes:
+      - mongo-data:/data/webapp-template
+networks:
+  webapp-template-network:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local

@@ -7,8 +7,24 @@ const dbConnect = async () => {
 
     const PROD_DB_URL = process.env.PROD_DB_URL
     const DEV_DB_URL = process.env.DEV_DB_URL
+    const DOCKER_DB_URL = process.env.DOCKER_DB_URL
+    const DOCKER_MODE = process.env.DOCKER_MODE
+    
+    // if none of the mentioned production modes would be mentioned, dev mode will be taken
+    let connectionString = DEV_DB_URL || "mongodb://localhost:27017"
+
+    if (DOCKER_MODE === "true") {
+        connectionString = DOCKER_DB_URL
+        console.log("Docker mode")
+    } 
+    
+    if (DOCKER_MODE === "false")
+    {
+        connectionString = PROD_DB_URL
+        console.log("Standard mode")
+    }
+     
     const DB_NAME = process.env.DB_NAME || "webapp_template"
-    const connectionString = PROD_DB_URL || DEV_DB_URL
 
     mongoose.connection.on('connected', () => {
         console.log('DB is connected - OK')
