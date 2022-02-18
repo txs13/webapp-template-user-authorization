@@ -7,7 +7,7 @@ const dbConnect = async () => {
 
     const PROD_DB_URL = process.env.PROD_DB_URL
     const DEV_DB_URL = process.env.DEV_DB_URL
-    const DOCKER_DB_URL = process.env.DOCKER_DB_URL
+    const DOCKER_DB_URL = process.env.DOCKER_DB_URL || "mongodb://mongo:27017"
     const DOCKER_MODE = process.env.DOCKER_MODE
     
     // if none of the mentioned production modes would be mentioned, dev mode will be taken
