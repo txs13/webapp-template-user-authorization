@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 services:
   webapp-template-client:
     build: ./client
@@ -20,7 +20,7 @@ services:
   mongo:
     image: mongo:5.0.6
     ports:
-      - "27017: 27017"
+      - "27017:27017"
     networks:
       - webapp-template-network
     volumes:

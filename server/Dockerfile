@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["DOCKER_MODE=true node index.js"]
+CMD ["npm", "run", "production-docker"]

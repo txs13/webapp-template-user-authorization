@@ -24,7 +24,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && mv build ../server/frontend-build",
+    "build":"react-scripts build",
+    "build-remote": "react-scripts build && mv build ../server/frontend-build",
     "test": "react-scripts test",
     "remote-test": "jest",
     "eject": "react-scripts eject"
