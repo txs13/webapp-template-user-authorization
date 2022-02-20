@@ -56,4 +56,4 @@ DB_NAME=webapp_template</quote></li>
 <hr></hr>
 <p>Here are some screenshots of the app:</p>
 <img src="./screenshot1.png" width="300px"/>
-<img src="./screenshot2.png" width="161px"/>
+<img src="./screenshot2.png" width="300px"/>
